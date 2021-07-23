@@ -28,6 +28,11 @@ npm install @nghinv/react-native-animated
 import { springConfig, timingConfig } from '@nghinv/react-native-animated';
 ```
 
+---
+## Credits
+
+- [@Nghi-NV](https://github.com/Nghi-NV)
+
 [version-badge]: https://img.shields.io/npm/v/@nghinv/react-native-animated.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@nghinv/react-native-animated
 [license-badge]: https://img.shields.io/npm/l/@nghinv/react-native-animated.svg?style=flat-square
