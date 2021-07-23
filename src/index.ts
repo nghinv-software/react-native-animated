@@ -3,6 +3,10 @@
  * Copyright (c) 2021 nghinv@lumi.biz
  */
 
+import * as colors from './utils/colors';
+
 export * from './utils/animationConfig';
 export * from './utils/vector';
-export * as colors from './utils/colors';
+export {
+  colors,
+}

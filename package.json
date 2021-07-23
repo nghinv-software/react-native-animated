@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-animated",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Native animated Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
