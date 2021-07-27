@@ -3,15 +3,11 @@
  * Copyright (c) 2021 nghinv@lumi.biz
  */
 
+import { clamp } from './math';
+
 const RGB_MAX = 255;
 const HUE_MAX = 360;
 const SV_MAX = 100;
-
-export type HsvType = {
-  h: number;
-  s: number;
-  v: number;
-};
 
 function _normalizeAngle(degrees: number) {
   'worklet';
@@ -19,7 +15,7 @@ function _normalizeAngle(degrees: number) {
   return ((degrees % 360) + 360) % 360;
 }
 
-export const rgbToHex = (r: any, g: any, b: any) => {
+export const rgb2Hex = (r: any, g: any, b: any) => {
   'worklet';
 
   if (typeof r === 'object') {
@@ -39,7 +35,7 @@ export const rgbToHex = (r: any, g: any, b: any) => {
   return `#${r}${g}${b}`;
 };
 
-export function rgbToHsv(r: any, g: any, b: any) {
+export function rgb2Hsv(r: any, g: any, b: any) {
   'worklet';
 
   if (typeof r === 'object') {
@@ -93,7 +89,7 @@ export function rgbToHsv(r: any, g: any, b: any) {
   };
 }
 
-export function hexToRgb(hex: string) {
+export function hex2Rgb(hex: string) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
   if (result) {
@@ -107,14 +103,14 @@ export function hexToRgb(hex: string) {
   return null;
 }
 
-export function hexToHsv(hex: string) {
+export function hex2Hsv(hex: string) {
   'worklet';
 
-  const rgb = hexToRgb(hex)!;
-  return rgbToHsv(rgb.r, rgb.g, rgb.b);
+  const rgb = hex2Rgb(hex)!;
+  return rgb2Hsv(rgb.r, rgb.g, rgb.b);
 }
 
-export const hsvToRgb = (h: any, s: any, v: any) => {
+export const hsv2Rgb = (h: any, s: any, v: any) => {
   'worklet';
 
   if (typeof h === 'object') {
@@ -149,9 +145,46 @@ export const hsvToRgb = (h: any, s: any, v: any) => {
   };
 };
 
-export function hsvToHex(h: any, s: any, v: any) {
+export function hsv2Hex(h: any, s: any, v: any) {
   'worklet';
 
-  const rgb = hsvToRgb(h, s, v);
-  return rgbToHex(rgb.r, rgb.g, rgb.b);
+  const rgb = hsv2Rgb(h, s, v);
+  return rgb2Hex(rgb.r, rgb.g, rgb.b);
+}
+
+export function colorTemperature2Rgb(kelvin: number) {
+  'worklet';
+
+  const temp = kelvin / 100;
+
+  let red: number;
+  let green: number;
+  let blue: number;
+
+  if (temp <= 66) {
+    red = 255;
+    green = temp;
+    green = 99.4708025861 * Math.log(green) - 161.1195681661;
+
+    if (temp <= 19) {
+      blue = 0;
+    } else {
+      blue = temp - 10;
+      blue = 138.5177312231 * Math.log(blue) - 305.0447927307;
+    }
+  } else {
+    red = temp - 60;
+    red = 329.698727446 * Math.pow(red, -0.1332047592);
+
+    green = temp - 60;
+    green = 288.1221695283 * Math.pow(green, -0.0755148492);
+
+    blue = 255;
+  }
+
+  return {
+    r: clamp(Math.round(red), 0, 255),
+    g: clamp(Math.round(green), 0, 255),
+    b: clamp(Math.round(blue), 0, 255),
+  };
 }

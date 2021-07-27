@@ -25,7 +25,22 @@ npm install @nghinv/react-native-animated
 ## Usage
 
 ```js
-import { springConfig, timingConfig } from '@nghinv/react-native-animated';
+import { 
+  springConfig, 
+  timingConfig,
+  colors,
+  useHsv,
+  useRgb,
+  useVector,
+  useLayoutRectangle,
+  toDeg,
+  toRadian,
+  clamp,
+  mix,
+  convertUtf8,
+  canvas2Polar,
+  polar2Canvas,
+} from '@nghinv/react-native-animated';
 ```
 
 ---
