@@ -40,6 +40,8 @@ import {
   convertUtf8,
   canvas2Polar,
   polar2Canvas,
+  vec,
+  vecAnimated,
 } from '@nghinv/react-native-animated';
 ```
 

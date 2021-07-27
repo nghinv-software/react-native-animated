@@ -3,10 +3,10 @@
  * Copyright (c) 2021 nghinv@lumi.biz
  */
 
-import type { Vector, VectorAnimated, PolarPoint } from './types';
+import type { Vector, VectorAnimated, PolarPoint, Point } from './types';
 
 // reference from react-native-redash
-export function createPoint(x1?: number, y1?: number) {
+export function createPoint(x1?: number, y1?: number): Point {
   'worklet';
 
   return {
@@ -78,6 +78,17 @@ export function subVectorAnimated(v1: VectorAnimated, v2: Vector | number) {
     y: v1.y.value - v2.y,
   };
 }
+
+export const vec = {
+  create: createPoint,
+  add: addVector,
+  sub: subVector,
+};
+
+export const vecAnimated = {
+  add: addVectorAnimated,
+  sub: subVectorAnimated,
+};
 
 export function canvas2Cartesian(v: Vector, center: Vector) {
   'worklet';

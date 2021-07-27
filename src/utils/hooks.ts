@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /**
  * Created by nghinv on Tue Jul 27 2021
  * Copyright (c) 2021 nghinv@lumi.biz
@@ -9,40 +10,69 @@ import type {
   LayoutRectangleAnimated,
   HsvAnimated,
   RgbAnimated,
+  Hsv,
+  Rgb,
+  LayoutRectangle,
 } from './types';
 
-export function useVector(x1 = 0, y1?: number): VectorAnimated {
-  const x = useSharedValue(x1);
-  const y = useSharedValue(y1 ?? x1);
-  return { x, y };
+export function useVector(x = 0, y?: number): VectorAnimated {
+  return {
+    x: useSharedValue(x),
+    y: useSharedValue(y ?? x),
+  };
 }
 
 export function useLayoutRectangle(
-  x = 0,
+  x: number | LayoutRectangle,
   y?: number,
   width?: number,
   height?: number
 ): LayoutRectangleAnimated {
+  if (typeof x === 'number') {
+    return {
+      x: useSharedValue(x),
+      y: useSharedValue(y ?? x),
+      width: useSharedValue(width ?? x),
+      height: useSharedValue(height ?? x),
+    };
+  }
+
   return {
-    x: useSharedValue(x),
-    y: useSharedValue(y ?? x),
-    width: useSharedValue(width ?? x),
-    height: useSharedValue(height ?? x),
+    x: useSharedValue(x.x),
+    y: useSharedValue(x.y),
+    width: useSharedValue(x.width),
+    height: useSharedValue(x.height),
   };
 }
 
-export function useHsv(h = 0, s?: number, v?: number): HsvAnimated {
+export function useHsv(h: number | Hsv, s?: number, v?: number): HsvAnimated {
+  if (typeof h === 'number') {
+    return {
+      h: useSharedValue(h),
+      s: useSharedValue(s ?? h),
+      v: useSharedValue(v ?? h),
+    };
+  }
+
   return {
-    h: useSharedValue(h),
-    s: useSharedValue(s ?? h),
-    v: useSharedValue(v ?? h),
+    h: useSharedValue(h.h),
+    s: useSharedValue(h.s),
+    v: useSharedValue(h.v),
   };
 }
 
-export function useRgb(r = 0, g?: number, b?: number): RgbAnimated {
+export function useRgb(r: number | Rgb, g?: number, b?: number): RgbAnimated {
+  if (typeof r === 'number') {
+    return {
+      r: useSharedValue(r),
+      g: useSharedValue(g ?? r),
+      b: useSharedValue(b ?? r),
+    };
+  }
+
   return {
-    r: useSharedValue(r),
-    g: useSharedValue(g ?? r),
-    b: useSharedValue(b ?? r),
+    r: useSharedValue(r.r),
+    g: useSharedValue(r.g),
+    b: useSharedValue(r.b),
   };
 }
