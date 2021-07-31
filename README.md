@@ -22,6 +22,10 @@ or
 npm install @nghinv/react-native-animated
 ```
 
+```sh
+yarn add react-native-reanimated
+```
+
 ## Usage
 
 ```js

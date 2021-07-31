@@ -1,6 +1,6 @@
 {
   "name": "@nghinv/react-native-animated",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React Native animated Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -30,9 +30,7 @@
     "react-native-animated"
   ],
   "publishConfig": {
-    "access": "public",
-    "cache": "~/.npm",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "repository": "https://github.com/nghinv-software/react-native-animated",
   "author": "NghiNV <nguyennghidt6@gmail.com> (https://github.com/nghi-nv)",
@@ -64,9 +62,7 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "^0.64.2"
-  },
-  "dependencies": {
+    "react-native": "*",
     "react-native-reanimated": ">=2.0.0-rc.0"
   },
   "jest": {
